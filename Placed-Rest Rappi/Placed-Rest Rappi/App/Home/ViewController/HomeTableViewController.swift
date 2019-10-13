@@ -14,20 +14,32 @@ class HomeTableViewController: UITableViewController {
 
     var homeVM = HomeViewModel()
     var restaurants : [RestaurantModel] = []
+    var showMoreProgress = true {
+        didSet{
+            if !showMoreProgress {
+                self.refreshControl!.endRefreshing()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loadInitialData()
+        self.loadData()
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:  #selector(loadData), for: .valueChanged)
+        self.refreshControl = refreshControl
     }
 
-    func loadInitialData() {
+    @objc func loadData() {
         homeVM.callSearchObservable{ result in
             switch result{
             case .success(let model):
                 if let restaurants = model.restaurants {
                     self.restaurants = restaurants
                     self.tableView.reloadData()
+                    self.showMoreProgress = false
 //
 //                    let items = Observable.just(restaurants)
 //
@@ -93,6 +105,18 @@ class HomeTableViewController: UITableViewController {
         let vc = R.storyboard.home.restaurantDetailViewController()
         self.navigationController?.pushViewController(vc!, animated: true)
     }
+    
+//    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//
+//        let lastElement = self.restaurants.count - 1
+//        if indexPath.row == lastElement {
+//            if showMoreProgress == false {
+//                self.showMoreProgress = true
+//                self.homeVM.pageNumber+=1
+//                self.loadData()
+//            }
+//        }
+//    }
 
 
 }

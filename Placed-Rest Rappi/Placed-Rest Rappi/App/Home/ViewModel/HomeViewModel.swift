@@ -15,14 +15,19 @@ public class HomeViewModel {
     
     let regionRadius: CLLocationDistance = 1000
     var searchLocation : CLLocation
+    var itemPerPage = 20
+    var pageNumber = 1
     
     init() {
         self.searchLocation = CLLocation(latitude: defaultCoordinate["latitude"]!, longitude: defaultCoordinate["longitude"]!)
     }
     
-    func callSearchObservable( completation: @escaping (Result<SearchModel,ErrorApi>) -> Void) {
+    func callSearchObservable(getMax : Bool = false, completation: @escaping (Result<SearchModel,ErrorApi>) -> Void) {
         
-        Api.request(endpoint : .search(lat: self.searchLocation.coordinate.latitude , log: self.searchLocation.coordinate.longitude), completation : completation)
+        Api.request(endpoint : .search(lat: self.searchLocation.coordinate.latitude ,
+                                        log: self.searchLocation.coordinate.longitude,
+                                        count: getMax ? itemPerPage*pageNumber : itemPerPage ),
+                    completation : completation)
     }
     
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class RestaurantDetailViewController: UIViewController {
 
+    var data : RestaurantModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

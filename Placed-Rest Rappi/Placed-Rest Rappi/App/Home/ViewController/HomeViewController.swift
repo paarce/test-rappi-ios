@@ -81,9 +81,10 @@ extension HomeViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
         
-        let _ = view.annotation as! RestaurantPin
+        let pin = view.annotation as! RestaurantPin
         
         let vc = R.storyboard.home.restaurantDetailViewController()
+        vc!.data = pin.data
         self.navigationController?.pushViewController(vc!, animated: true)
         
     }
