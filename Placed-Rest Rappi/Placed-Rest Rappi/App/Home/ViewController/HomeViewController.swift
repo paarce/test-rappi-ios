@@ -13,6 +13,16 @@ class HomeViewController: UIViewController {
 
     // MARK: - Properties
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var menuTabBarView: NavigationTabBar!{
+        didSet{
+            let color = UIColor.init(red: 146/255, green: 126/255, blue: 71/255, alpha: 1)
+            let colorText = UIColor.gray
+            menuTabBarView.setButtonTitles(buttonTitles: ["Maps","List"])
+            menuTabBarView.backgroundColor     = .clear
+            menuTabBarView.selectorViewColor   = color
+            menuTabBarView.selectorTextColor   = colorText
+        }
+    }
     
     var homeVM = HomeViewModel()
     
@@ -27,7 +37,6 @@ class HomeViewController: UIViewController {
         mapView.register(RestaurantPinView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
         self.loadInitialData()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

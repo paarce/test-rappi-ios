@@ -30,6 +30,8 @@
 		8664FE242352F74100B62142 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE232352F74100B62142 /* PhotoModel.swift */; };
 		8664FE262352FABF00B62142 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE252352FABF00B62142 /* HomeTableViewController.swift */; };
 		8664FE292352FC0D00B62142 /* tableview+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE282352FC0D00B62142 /* tableview+extension.swift */; };
+		8664FE652353270D00B62142 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8664FE642353270D00B62142 /* GoogleService-Info.plist */; };
+		8664FE6A2353B11200B62142 /* HomeNavigationTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE692353B11200B62142 /* HomeNavigationTabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		8664FE232352F74100B62142 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		8664FE252352FABF00B62142 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		8664FE282352FC0D00B62142 /* tableview+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "tableview+extension.swift"; sourceTree = "<group>"; };
+		8664FE642353270D00B62142 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8664FE692353B11200B62142 /* HomeNavigationTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationTabBar.swift; sourceTree = "<group>"; };
 		9B8D0724637DE538550D4889 /* Pods-Placed-Rest Rappi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Placed-Rest Rappi.debug.xcconfig"; path = "Target Support Files/Pods-Placed-Rest Rappi/Pods-Placed-Rest Rappi.debug.xcconfig"; sourceTree = "<group>"; };
 		B09E3EB1A55AA15DE5A7D065 /* Pods-Placed-Rest RappiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Placed-Rest RappiTests.debug.xcconfig"; path = "Target Support Files/Pods-Placed-Rest RappiTests/Pods-Placed-Rest RappiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F71F7FBB9AD3B67F185511DF /* Pods_Placed_Rest_RappiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Placed_Rest_RappiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,6 +173,7 @@
 				8664FDF823524D5900B62142 /* Resource */,
 				8664FDFA23524E5300B62142 /* Supporting Files */,
 				8664FDD223524A9C00B62142 /* LaunchScreen.storyboard */,
+				8664FE642353270D00B62142 /* GoogleService-Info.plist */,
 			);
 			path = "Placed-Rest Rappi";
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				8664FE012352718C00B62142 /* RestaurantPin.swift */,
+				8664FE692353B11200B62142 /* HomeNavigationTabBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8664FDD423524A9C00B62142 /* LaunchScreen.storyboard in Resources */,
+				8664FE652353270D00B62142 /* GoogleService-Info.plist in Resources */,
 				8664FDD123524A9C00B62142 /* Assets.xcassets in Resources */,
 				8664FDCF23524A9700B62142 /* Home.storyboard in Resources */,
 			);
@@ -560,6 +567,7 @@
 				8664FDCA23524A9700B62142 /* AppDelegate.swift in Sources */,
 				8664FE022352718C00B62142 /* RestaurantPin.swift in Sources */,
 				8664FDFF23526F4C00B62142 /* HomeViewController.swift in Sources */,
+				8664FE6A2353B11200B62142 /* HomeNavigationTabBar.swift in Sources */,
 				8664FE1E2352E6DF00B62142 /* RestaurantDetailViewController.swift in Sources */,
 				8664FE0923527BC300B62142 /* Const.swift in Sources */,
 				8664FE242352F74100B62142 /* PhotoModel.swift in Sources */,

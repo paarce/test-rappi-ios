@@ -13,7 +13,7 @@ let provider = MoyaProvider<Api>()
 
 
 enum Api {
-    case search( lat : Double, log : Double, count : Int)
+    case search( lat : Double, log : Double, q : String?)
     
 }
 
@@ -57,11 +57,11 @@ extension Api: TargetType {
     var task: Task {
     
         switch self {
-        case .search(let lat, let log, let count):
+        case .search(let lat, let log, let q):
             let parameters : [String : Any] = [
                 "lat": lat,
                 "lon": log,
-                "count": count
+                "q": q ?? ""
                 ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         }
@@ -69,7 +69,6 @@ extension Api: TargetType {
     }
     
     static func request<T: Codable>(endpoint : Api, completationBool: ((Result<Bool,ErrorApi>) -> Void)? = nil, completation: ((Result<T,ErrorApi>) -> Void)? = nil)  {
-        //print(endpoint.baseURL.absoluteString+endpoint.path)
         provider.rx.request(endpoint).subscribe { event in
             switch event {
             case let .success(response):

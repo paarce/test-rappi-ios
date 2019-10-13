@@ -22,11 +22,11 @@ public class HomeViewModel {
         self.searchLocation = CLLocation(latitude: defaultCoordinate["latitude"]!, longitude: defaultCoordinate["longitude"]!)
     }
     
-    func callSearchObservable(getMax : Bool = false, completation: @escaping (Result<SearchModel,ErrorApi>) -> Void) {
+    func callSearchObservable(query : String? = nil, completation: @escaping (Result<SearchModel,ErrorApi>) -> Void) {
         
         Api.request(endpoint : .search(lat: self.searchLocation.coordinate.latitude ,
                                         log: self.searchLocation.coordinate.longitude,
-                                        count: getMax ? itemPerPage*pageNumber : itemPerPage ),
+                                        q: query ),
                     completation : completation)
     }
     

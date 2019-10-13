@@ -39,8 +39,11 @@ class HomeTableViewController: UITableViewController {
         self.refreshControl = refreshControl
     }
 
-    @objc func loadData() {
-        homeVM.callSearchObservable{ result in
+    @objc func loadData(query : String? = nil) {
+        self.showMoreProgress = true
+        self.restaurants.removeAll()
+        
+        homeVM.callSearchObservable(query : query){ result in
             switch result{
             case .success(let model):
                 if let restaurants = model.restaurants {
@@ -85,10 +88,14 @@ class HomeTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.restaurants.count == 0 {
-            tableView.setEmptyView(title: "You don't have any contact.", message: "Your contacts will be in here.")
-        }
-        else {
+        if self.restaurants.count == 0 && !self.showMoreProgress {
+            
+            if !self.showMoreProgress {
+                tableView.setEmptyView(title: "You don't have any contact.", message: "Your contacts will be in here.")
+            }else{
+                return 1
+            }
+        } else {
             tableView.restore()
         }
 
@@ -97,13 +104,18 @@ class HomeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if self.restaurants.count == 0 && !self.showMoreProgress {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "restCell")
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "restCell")
+            cell?.textLabel?.text = self.restaurants[indexPath.row].restaurant.name ?? "No title"
+            cell?.detailTextLabel?.text = self.restaurants[indexPath.row].restaurant.location.address ?? "No title"
 
-        cell?.textLabel?.text = self.restaurants[indexPath.row].restaurant.name ?? "No title"
-        cell?.detailTextLabel?.text = self.restaurants[indexPath.row].restaurant.location.address ?? "No title"
-
-        return cell!
+            return cell!
+        }else{
+            
+            return tableView.dequeueReusableCell(withIdentifier: "loadingCell")!
+        }
 
     }
 
@@ -132,7 +144,11 @@ extension HomeTableViewController: UISearchResultsUpdating, UISearchBarDelegate 
     
     func updateSearchResults(for searchController: UISearchController) {
         print("UPDATE====")
+        let searchBar = searchController.searchBar
+        self.loadData(query: searchBar.text)
     }
+    
+    
     
     
 }
