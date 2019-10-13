@@ -7,26 +7,47 @@
 //
 
 import UIKit
+import Lightbox
 
 class RestaurantDetailViewController: UIViewController {
 
     var data : RestaurantModel?
-    
+    var controllerImagesViewer : LightboxController?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.configPhotosViwer()
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+     @IBAction func onShowPhotos(_ sender: Any) {
+        if let _ = controllerImagesViewer {
+            present(controllerImagesViewer!, animated: true, completion: nil)
+        }
+     }
+    
+    private func configPhotosViwer(){
+        
+        if let _ = self.data {
+            
+            let images = self.data!.restaurant.photos.compactMap { LightboxImage(imageURL: URL(string: $0.photo.url!)!, text : $0.photo.caption ?? "" ) }
+            
+            self.controllerImagesViewer = LightboxController(images: images)
+            self.controllerImagesViewer!.pageDelegate = self
+            self.controllerImagesViewer!.dismissalDelegate = self
+        }
     }
-    */
+}
 
+extension RestaurantDetailViewController: LightboxControllerPageDelegate, LightboxControllerDismissalDelegate {
+    
+    func lightboxControllerWillDismiss(_ controller: LightboxController) {
+        print()
+    }
+    
+    
+    func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) {
+        print(page)
+    }
 }

@@ -93,6 +93,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lE6-28-Dpo">
+                                <rect key="frame" x="162" y="710" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Show photos"/>
+                                <connections>
+                                    <action selector="onShowPhotos:" destination="utr-jz-31O" eventType="touchUpInside" id="MuG-t5-h7v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="9tf-LE-ZUS"/>
@@ -178,6 +186,6 @@
         <image name="Flag" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XvS-tc-HwO"/>
+        <segue reference="Xsr-Hx-WH5"/>
     </inferredMetricsTieBreakers>
 </document>
