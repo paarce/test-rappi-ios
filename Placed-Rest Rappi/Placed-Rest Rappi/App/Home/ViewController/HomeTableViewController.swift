@@ -22,10 +22,17 @@ class HomeTableViewController: UITableViewController {
         }
     }
     
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.loadData()
+        self.configSearchBar()
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(loadData), for: .valueChanged)
@@ -105,18 +112,27 @@ class HomeTableViewController: UITableViewController {
         let vc = R.storyboard.home.restaurantDetailViewController()
         self.navigationController?.pushViewController(vc!, animated: true)
     }
+}
+
+extension HomeTableViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
-//    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//
-//        let lastElement = self.restaurants.count - 1
-//        if indexPath.row == lastElement {
-//            if showMoreProgress == false {
-//                self.showMoreProgress = true
-//                self.homeVM.pageNumber+=1
-//                self.loadData()
-//            }
-//        }
-//    }
-
-
+    func configSearchBar() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Candies"
+        navigationItem.searchController = searchController
+        
+        searchController.searchBar.scopeButtonTitles = ["All", "Single", "Married"]
+        searchController.searchBar.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        print("UPDATE====")
+    }
+    
+    
 }

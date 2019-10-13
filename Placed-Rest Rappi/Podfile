@@ -13,6 +13,7 @@ target 'Placed-Rest Rappi' do
   pod 'Moya/RxSwift', '13.0.0'
   pod 'IQKeyboardManagerSwift'
   pod 'Lightbox'
+  #pod 'RealmSwift'
 
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
