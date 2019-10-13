@@ -35,11 +35,34 @@ class HomeTableViewController: UITableViewController {
         self.configSearchBar()
         
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action:  #selector(loadData), for: .valueChanged)
+        refreshControl.addTarget(self, action:  #selector(refresh), for: .valueChanged)
         self.refreshControl = refreshControl
+        
+//        let items = Observable.just(restaurants)
+//
+//        items.bind(to: self.tableView.rx.items(cellIdentifier: "restCell")) { row, model, cell in
+//
+//            cell.textLabel?.text = model.restaurant.name ?? "No title"
+//            cell.detailTextLabel?.text = model.restaurant.location.address ?? "No title"
+//            cell.selectionStyle = .none
+//            }.disposed(by: disposbag)
+//
+//        self.tableView.rx
+//            .modelSelected(RestaurantModel.self)
+//            .subscribe(onNext: { value in
+//
+//                let vc = R.storyboard.home.restaurantDetailViewController()
+//                self.navigationController?.pushViewController(vc!, animated: true)
+//            })
+//            .disposed(by: disposbag)
+        
     }
-
-    @objc func loadData(query : String? = nil) {
+    
+    @objc func refresh(){
+        self.loadData(query: nil)
+    }
+    
+    func loadData(query : String? = nil) {
         self.showMoreProgress = true
         self.restaurants.removeAll()
         
@@ -50,25 +73,6 @@ class HomeTableViewController: UITableViewController {
                     self.restaurants = restaurants
                     self.tableView.reloadData()
                     self.showMoreProgress = false
-//
-//                    let items = Observable.just(restaurants)
-//
-//                    items.bind(to: self.tableView.rx.items(cellIdentifier: "restCell")) { row, model, cell in
-//
-//                        cell.textLabel?.text = model.restaurant.name ?? "No title"
-//                        cell.detailTextLabel?.text = model.restaurant.location.address ?? "No title"
-//                        cell.selectionStyle = .none
-//                        }.disposed(by: disposbag)
-//
-//
-//                    self.tableView.rx
-//                        .modelSelected(RestaurantModel.self)
-//                        .subscribe(onNext: { value in
-//
-//                            let vc = R.storyboard.home.restaurantDetailViewController()
-//                            self.navigationController?.pushViewController(vc!, animated: true)
-//                        })
-//                        .disposed(by: disposbag)
                 
                 }
                 break
@@ -105,7 +109,7 @@ class HomeTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if self.restaurants.count == 0 && !self.showMoreProgress {
+        if !self.showMoreProgress {
             let cell = tableView.dequeueReusableCell(withIdentifier: "restCell")
 
             cell?.textLabel?.text = self.restaurants[indexPath.row].restaurant.name ?? "No title"
@@ -144,11 +148,8 @@ extension HomeTableViewController: UISearchResultsUpdating, UISearchBarDelegate 
     
     func updateSearchResults(for searchController: UISearchController) {
         print("UPDATE====")
-        let searchBar = searchController.searchBar
-        self.loadData(query: searchBar.text)
+//        let searchBar = searchController.searchBar
+//        self.loadData(query: searchBar.text)
     }
-    
-    
-    
     
 }

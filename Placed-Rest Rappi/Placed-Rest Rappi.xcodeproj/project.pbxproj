@@ -142,6 +142,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8656864D2353C36800A4D60C /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
 		8664FDBD23524A9700B62142 = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +307,7 @@
 		8664FE162352CCA500B62142 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8656864D2353C36800A4D60C /* Maps */,
 				8664FE012352718C00B62142 /* RestaurantPin.swift */,
 				8664FE692353B11200B62142 /* HomeNavigationTabBar.swift */,
 			);

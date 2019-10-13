@@ -26,10 +26,21 @@ class HomeViewController: UIViewController {
     
     var homeVM = HomeViewModel()
     
+    
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    
     // MARK: - View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.configSearchBar()
         
         centerMapOnLocation(location: self.homeVM.searchLocation)
         
@@ -113,6 +124,31 @@ extension HomeViewController: MKMapViewDelegate {
             annotationView.leftCalloutAccessoryView = btn
             return annotationView
         }
+    }
+    
+}
+
+
+extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    func configSearchBar() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Candies"
+        navigationItem.searchController = searchController
+        
+        searchController.searchBar.scopeButtonTitles = ["All", "Single", "Married"]
+        searchController.searchBar.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        print("UPDATE====")
+        //        let searchBar = searchController.searchBar
+        //        self.loadData(query: searchBar.text)
     }
     
 }
