@@ -48,13 +48,33 @@ class RestaurantDetailViewController: UIViewController {
     }
     
     @IBAction func onCallPhone(_ sender: Any) {
-    
-        if let phone = self.data?.restaurant.phone_numbers ,let url = URL(string: "tel://\(phone)"), UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(url)
-            } else {
-                UIApplication.shared.openURL(url)
+        
+        print(self.data?.restaurant.phone_numbers)
+        
+        if let phone = self.data?.restaurant.phone_numbers {
+            
+            let numbers = phone.components(separatedBy: ", ")
+            
+            for num in numbers {
+                
+                if let url = URL(string: "tel://\(num)")
+                {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                    return
+                }
             }
+            let alertController = UIAlertController(title: "Call failed", message:
+                "The phone numbers are in a wrong format", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+            
+            
         }
     }
     
@@ -78,7 +98,7 @@ class RestaurantDetailViewController: UIViewController {
                 self.countVoteLabel.text = "\(user_rating.votes ?? "0") votes counted"
             }
             
-            self.photosButton.isHidden = rest.phone_numbers == nil
+            self.photosButton.isHidden = rest.phone_numbers == nil || rest.phone_numbers! == "Not available for this place"
             
             if let id = rest.id {
                 self.restDetailVM.callDailyMenuObservable(id: id) { result in

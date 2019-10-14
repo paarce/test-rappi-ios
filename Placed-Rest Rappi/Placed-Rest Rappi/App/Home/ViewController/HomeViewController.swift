@@ -113,6 +113,11 @@ class HomeViewController: UIViewController {
                     self.mapRestaurantView.mapView?.removeAnnotations(annotations)
                 }
                 self.listRestaurantView.restaurants = restaurants
+                
+                if restaurants.count > 0 {
+                    //self.mapRestaurantView.centerMapOnLocation(location: restaurants[0].restaurant.location)
+                }
+                
             }else{
                 self.listRestaurantView.restaurants += restaurants
                 
@@ -184,7 +189,10 @@ extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        print("UPDATE====")
+       
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searcBar = searchController.searchBar
         self.homeVM.callSearchObservable(query: searcBar.text) { result in
             switch result{

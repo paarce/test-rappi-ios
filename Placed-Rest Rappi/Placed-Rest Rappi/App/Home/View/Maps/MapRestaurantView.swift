@@ -62,7 +62,7 @@ class MapRestaurantView: UIView, CLLocationManagerDelegate {
         
         
         self.parent?.initUser(location: location)
-        self.centerMapOnLocation(location: location, regionRadius: self.regionRadius)
+        self.centerMapOnLocation(location: location)
         self.parent?.loadInitialData()
         
         
@@ -80,9 +80,9 @@ class MapRestaurantView: UIView, CLLocationManagerDelegate {
         }
     }
     
-    func centerMapOnLocation(location: CLLocation, regionRadius : CLLocationDistance) {
+    func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                                  latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
+                                                  latitudinalMeters: self.regionRadius, longitudinalMeters: self.regionRadius)
         mapView?.setRegion(coordinateRegion, animated: true)
     }
     
@@ -92,7 +92,7 @@ class MapRestaurantView: UIView, CLLocationManagerDelegate {
         if !self.settedLocation {
             
             self.parent?.initUser(location: locValue)
-            self.centerMapOnLocation(location: locValue, regionRadius: self.regionRadius)
+            self.centerMapOnLocation(location: locValue)
             self.parent?.loadInitialData()
             self.settedLocation = true
             
