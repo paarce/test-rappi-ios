@@ -12,14 +12,10 @@ target 'Placed-Rest Rappi' do
   pod 'Moya/RxSwift', '13.0.0'
   pod 'Lightbox'
   pod 'SnapKit', '~> 5.0.0'
-
-  pod 'RxDataSources', '~> 3.0'
-  pod 'IQKeyboardManagerSwift'
+  pod 'Fabric', '~> 1.10.2'
+  pod 'Crashlytics', '~> 3.14.0'
   pod 'Firebase/Core'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/DynamicLinks'
-  pod 'Firebase/Messaging'
-  pod 'lottie-ios'
+  pod 'Kingfisher', '~> 5.5'
 
   # Pods for Placed-Rest Rappi
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
     
@@ -56,7 +57,14 @@ class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
         
         cell.textLabel?.text = self.restaurants[indexPath.row].restaurant.name ?? "No title"
         cell.detailTextLabel?.text = self.restaurants[indexPath.row].restaurant.location?.address ?? "No title"
-        cell.imageView?.image = UIImage(named: "Flag")
+        
+        if let str = self.restaurants[indexPath.row].restaurant.thumb, let url = URL(string: str) {
+            
+            cell.imageView?.kf.setImage(with: url,placeholder: UIImage(named: "Flag"))
+            
+        }else{
+            cell.imageView?.image = UIImage(named: "Flag")
+        }
         cell.accessoryType = .detailDisclosureButton
         cell.selectionStyle = .none
 

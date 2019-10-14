@@ -16,6 +16,7 @@ class RestaurantDetailViewController: UIViewController {
     @IBOutlet weak var addressValueLabel: UILabel!
     @IBOutlet weak var ratingNumberLabel: UILabel!
     @IBOutlet weak var countVoteLabel: UILabel!
+    @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var dailyMenuButton: UIButton!
     @IBOutlet weak var photosButton: UIButton!
     
@@ -46,6 +47,17 @@ class RestaurantDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func onCallPhone(_ sender: Any) {
+    
+        if let phone = self.data?.restaurant.phone_numbers ,let url = URL(string: "tel://\(phone)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
     func initUI() {
         
         if let data = self.data {
@@ -65,6 +77,9 @@ class RestaurantDetailViewController: UIViewController {
                 self.ratingNumberLabel.backgroundColor = hexStringToUIColor(hex: "#\(user_rating.rating_color!)")
                 self.countVoteLabel.text = "\(user_rating.votes ?? "0") votes counted"
             }
+            
+            self.photosButton.isHidden = rest.phone_numbers == nil
+            
             if let id = rest.id {
                 self.restDetailVM.callDailyMenuObservable(id: id) { result in
                     switch result{
