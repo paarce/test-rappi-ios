@@ -19,6 +19,8 @@ struct RestaurantChildModel : Codable {
     let name: String?
     let url: String?
     let cuisines: String?
+    let phone_numbers : String?
+    let thumb : String?
     let location: LocationModel?
     let photos : [PhotoModel]?
     let all_reviews : ReviewsListModel?
@@ -43,13 +45,16 @@ struct UserRatingModel : Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Keys.self)
         self.aggregate_rating = "0.0"
-        if let idstr = try container.decodeIfPresent(String.self, forKey: .aggregate_rating) {
+        if let idstr = try? container.decodeIfPresent(String.self, forKey: .aggregate_rating) {
             if let idnum = Int(idstr) {
                 aggregate_rating = idnum
             }
             else {
                 aggregate_rating = idstr
             }
+        }else if let idnum = try? container.decodeIfPresent(Int.self, forKey: .aggregate_rating) {
+            
+            aggregate_rating = idnum
         }
         
         self.rating_text = try container.decodeIfPresent(String.self, forKey: .rating_text)

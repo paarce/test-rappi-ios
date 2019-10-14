@@ -16,9 +16,12 @@ class RestaurantDetailViewController: UIViewController {
     @IBOutlet weak var addressValueLabel: UILabel!
     @IBOutlet weak var ratingNumberLabel: UILabel!
     @IBOutlet weak var countVoteLabel: UILabel!
+    @IBOutlet weak var dailyMenuButton: UIButton!
+    @IBOutlet weak var photosButton: UIButton!
     
     var data : RestaurantModel?
     var controllerImagesViewer : LightboxController?
+    var restDetailVM = RestaurantDetailViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,10 @@ class RestaurantDetailViewController: UIViewController {
             present(controllerImagesViewer!, animated: true, completion: nil)
         }
      }
+    
+    @IBAction func onShowDailyMenu(_ sender: Any) {
+        
+    }
     
     func initUI() {
         
@@ -53,6 +60,20 @@ class RestaurantDetailViewController: UIViewController {
                 self.ratingNumberLabel.backgroundColor = hexStringToUIColor(hex: "#\(user_rating.rating_color!)")
                 self.countVoteLabel.text = "\(user_rating.votes ?? "0") votes counted"
             }
+            if let id = rest.id {
+                self.restDetailVM.callDailyMenuObservable(id: id) { result in
+                    switch result{
+                    case .success(let model):
+                        self.dailyMenuButton.setTitle("Show Daily Menu", for: .normal)
+                        self.dailyMenuButton.isEnabled = true
+                        break
+                        
+                    case .failure(let errorT):
+                        print(errorT.get().message)
+                        break
+                    }
+                }
+            }
             
         }
     }
@@ -67,6 +88,9 @@ class RestaurantDetailViewController: UIViewController {
                 self.controllerImagesViewer = LightboxController(images: images)
                 self.controllerImagesViewer!.pageDelegate = self
                 self.controllerImagesViewer!.dismissalDelegate = self
+                
+                self.photosButton.setTitle("Show photos", for: .normal)
+                self.photosButton.isEnabled = true
             }
         }
     }

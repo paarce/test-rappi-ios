@@ -14,7 +14,7 @@ let provider = MoyaProvider<Api>()
 
 enum Api {
     case search( lat : Double, log : Double, q : String?, start: Int?, sort : String?)
-    
+    case dailyMenu( res_id : Int)
 }
 
 
@@ -36,13 +36,15 @@ extension Api: TargetType {
         switch self {
         case .search:
             return "search"
+        case .dailyMenu:
+            return "dailymenu"
         }
     }
     
     /// The HTTP method used in the request.
     var method: Moya.Method {
         switch self {
-        case .search
+        case .search, .dailyMenu
             :
             return .get
             
@@ -65,6 +67,12 @@ extension Api: TargetType {
                 "sort": sort ?? "",
                 "q": q ?? ""
                 ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+            
+        case .dailyMenu(let res_id):
+            let parameters : [String : Any] = [
+                "res_id": res_id
+            ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         }
          

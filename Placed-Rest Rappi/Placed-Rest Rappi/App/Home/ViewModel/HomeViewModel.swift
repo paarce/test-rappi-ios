@@ -13,11 +13,7 @@ import RxCocoa
 
 public class HomeViewModel {
     
-    var searchLocation : CLLocation {
-        didSet{
-            print(self.searchLocation.coordinate.latitude)
-        }
-    }
+    var searchLocation : CLLocation
     var itemPerPage = 20
     var pageNumber = 1
     var currentSort = ""
@@ -56,5 +52,6 @@ public class HomeViewModel {
                                        sort : self.currentSort ),
                     completation : completation)
     }
+    
     
 }
