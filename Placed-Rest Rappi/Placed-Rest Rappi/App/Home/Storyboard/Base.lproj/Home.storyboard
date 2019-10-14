@@ -18,9 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nX5-bg-AD2">
-                                <rect key="frame" x="0.0" y="129" width="414" height="684"/>
-                            </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="to4-do-LxU" customClass="NavigationTabBar" customModule="Placed_Rest_Rappi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="40"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -28,22 +25,34 @@
                                     <constraint firstAttribute="height" constant="40" id="j6F-dp-Mss"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCG-h9-wkR">
+                                <rect key="frame" x="0.0" y="128" width="414" height="685"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPG-Jt-pqB" customClass="MapRestaurantView" customModule="Placed_Rest_Rappi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="128" width="414" height="685"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="nX5-bg-AD2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="41" id="5SA-nO-BNQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="to4-do-LxU" secondAttribute="trailing" id="8LQ-PO-mr9"/>
-                            <constraint firstItem="nX5-bg-AD2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Flq-Go-VIZ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nX5-bg-AD2" secondAttribute="bottom" id="JO1-9K-Pdr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VPG-Jt-pqB" secondAttribute="bottom" id="9r1-0j-UCb"/>
+                            <constraint firstItem="bCG-h9-wkR" firstAttribute="top" secondItem="VPG-Jt-pqB" secondAttribute="top" id="LTs-G8-oTK"/>
+                            <constraint firstItem="bCG-h9-wkR" firstAttribute="leading" secondItem="VPG-Jt-pqB" secondAttribute="leading" id="Wck-Jh-Qys"/>
                             <constraint firstItem="to4-do-LxU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cZ5-v0-C4L"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nX5-bg-AD2" secondAttribute="trailing" id="mSs-8y-n0N"/>
+                            <constraint firstItem="VPG-Jt-pqB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oRK-wG-Wga"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VPG-Jt-pqB" secondAttribute="trailing" id="q6N-KN-0gb"/>
                             <constraint firstItem="to4-do-LxU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="t98-4P-s8y"/>
+                            <constraint firstItem="bCG-h9-wkR" firstAttribute="bottom" secondItem="VPG-Jt-pqB" secondAttribute="bottom" id="wQd-9p-rVW"/>
+                            <constraint firstItem="VPG-Jt-pqB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="zHJ-uR-MbL"/>
+                            <constraint firstItem="bCG-h9-wkR" firstAttribute="trailing" secondItem="VPG-Jt-pqB" secondAttribute="trailing" id="zzb-QF-zOm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="QDC-7Z-z17"/>
                     <connections>
-                        <outlet property="mapView" destination="nX5-bg-AD2" id="eOA-6E-ENr"/>
+                        <outlet property="mapRestaurantView" destination="VPG-Jt-pqB" id="PNK-xj-yCg"/>
                         <outlet property="menuTabBarView" destination="to4-do-LxU" id="bDd-d8-ox5"/>
                         <segue destination="utr-jz-31O" kind="show" id="Xsr-Hx-WH5"/>
                     </connections>

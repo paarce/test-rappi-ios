@@ -10,6 +10,7 @@
 		003C6EE74D366B7E6C5A451F /* Pods_Placed_Rest_RappiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71F7FBB9AD3B67F185511DF /* Pods_Placed_Rest_RappiTests.framework */; };
 		1FC2C9FB1B009D4E92BB0CE3 /* Pods_Placed_Rest_RappiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBDF5A4476D02178A908B9D3 /* Pods_Placed_Rest_RappiUITests.framework */; };
 		6718BA37E5732069D7AC1F85 /* Pods_Placed_Rest_Rappi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46AADE8B0EE7390C2E5F58E8 /* Pods_Placed_Rest_Rappi.framework */; };
+		865686512353C64800A4D60C /* MapRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865686502353C64800A4D60C /* MapRestaurantView.swift */; };
 		8664FDCA23524A9700B62142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FDC923524A9700B62142 /* AppDelegate.swift */; };
 		8664FDCF23524A9700B62142 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8664FDCD23524A9700B62142 /* Home.storyboard */; };
 		8664FDD123524A9C00B62142 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8664FDD023524A9C00B62142 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		46AADE8B0EE7390C2E5F58E8 /* Pods_Placed_Rest_Rappi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Placed_Rest_Rappi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		480033C2354B2A9FDE836394 /* Pods-Placed-Rest Rappi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Placed-Rest Rappi.release.xcconfig"; path = "Target Support Files/Pods-Placed-Rest Rappi/Pods-Placed-Rest Rappi.release.xcconfig"; sourceTree = "<group>"; };
 		736C6D096FD2E49A4F3BE486 /* Pods-Placed-Rest RappiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Placed-Rest RappiTests.release.xcconfig"; path = "Target Support Files/Pods-Placed-Rest RappiTests/Pods-Placed-Rest RappiTests.release.xcconfig"; sourceTree = "<group>"; };
+		865686502353C64800A4D60C /* MapRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRestaurantView.swift; sourceTree = "<group>"; };
 		8664FDC623524A9700B62142 /* Placed-Rest Rappi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Placed-Rest Rappi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8664FDC923524A9700B62142 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8664FDCE23524A9700B62142 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		8656864D2353C36800A4D60C /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				865686502353C64800A4D60C /* MapRestaurantView.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				8664FE152352855800B62142 /* SearchModel.swift in Sources */,
 				8664FE262352FABF00B62142 /* HomeTableViewController.swift in Sources */,
 				8664FE0F2352815900B62142 /* HomeViewModel.swift in Sources */,
+				865686512353C64800A4D60C /* MapRestaurantView.swift in Sources */,
 				8664FE132352843E00B62142 /* LocationModel.swift in Sources */,
 				8664FDCA23524A9700B62142 /* AppDelegate.swift in Sources */,
 				8664FE022352718C00B62142 /* RestaurantPin.swift in Sources */,

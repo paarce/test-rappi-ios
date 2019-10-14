@@ -12,7 +12,6 @@ import MapKit
 class HomeViewController: UIViewController {
 
     // MARK: - Properties
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var menuTabBarView: NavigationTabBar!{
         didSet{
             let color = UIColor.init(red: 146/255, green: 126/255, blue: 71/255, alpha: 1)
@@ -23,6 +22,8 @@ class HomeViewController: UIViewController {
             menuTabBarView.selectorTextColor   = colorText
         }
     }
+    
+    @IBOutlet weak var mapRestaurantView: MapRestaurantView!
     
     var homeVM = HomeViewModel()
     
@@ -41,39 +42,20 @@ class HomeViewController: UIViewController {
         
         
         self.configSearchBar()
+        self.mapRestaurantView.iniUI(location: self.homeVM.searchLocation, regionRadius: self.homeVM.regionRadius)
         
-        centerMapOnLocation(location: self.homeVM.searchLocation)
         
-        mapView.delegate = self
-        mapView.register(RestaurantPinView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
         self.loadInitialData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        checkLocationAuthorizationStatus()
+        self.mapRestaurantView.checkLocationAuthorizationStatus()
     }
     
-    // MARK: - CLLocationManager
-    
-    let locationManager = CLLocationManager()
-    func checkLocationAuthorizationStatus() {
-        if CLLocationManager.authorizationStatus() == .authorizedAlways {
-            mapView.showsUserLocation = true
-            
-        } else {
-            locationManager.requestAlwaysAuthorization()
-        }
-    }
     
     // MARK: - Helper methods
-    
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                                  latitudinalMeters: homeVM.regionRadius, longitudinalMeters: homeVM.regionRadius)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
     
     func loadInitialData() {
         homeVM.callSearchObservable{ result in
@@ -81,7 +63,7 @@ class HomeViewController: UIViewController {
                 case .success(let model):
                     if let restaurants = model.restaurants {
                         let pins = restaurants.compactMap { RestaurantPin(data: $0) }
-                        self.mapView.addAnnotations(pins)
+                        self.mapRestaurantView.mapView?.addAnnotations(pins)
                     }
                 break
 
@@ -93,41 +75,6 @@ class HomeViewController: UIViewController {
     }
     
 }
-
-// MARK: - MKMapViewDelegate
-
-extension HomeViewController: MKMapViewDelegate {
-   
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
-                 calloutAccessoryControlTapped control: UIControl) {
-        
-        let pin = view.annotation as! RestaurantPin
-        
-        let vc = R.storyboard.home.restaurantDetailViewController()
-        vc!.data = pin.data
-        self.navigationController?.pushViewController(vc!, animated: true)
-        
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation { return nil }
-        
-        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "") {
-            annotationView.annotation = annotation
-            return annotationView
-        } else {
-            let annotationView = MKPinAnnotationView(annotation:annotation, reuseIdentifier:"")
-            annotationView.isEnabled = true
-            annotationView.canShowCallout = true
-            
-            let btn = UIButton(type: .infoDark)
-            annotationView.leftCalloutAccessoryView = btn
-            return annotationView
-        }
-    }
-    
-}
-
 
 extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
