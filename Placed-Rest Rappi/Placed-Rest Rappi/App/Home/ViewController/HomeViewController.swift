@@ -115,7 +115,11 @@ class HomeViewController: UIViewController {
                 self.listRestaurantView.restaurants = restaurants
                 
                 if restaurants.count > 0 {
-                    //self.mapRestaurantView.centerMapOnLocation(location: restaurants[0].restaurant.location)
+                    
+                    let loc = restaurants[0].restaurant.location
+                    if let lat = loc?.latitude, let log = loc?.longitude, let dLat = CLLocationDegrees(lat), let dLog = CLLocationDegrees(log) {
+                        self.mapRestaurantView.centerMapOnLocation(location: CLLocation(latitude: dLat, longitude: dLog ) )
+                    }
                 }
                 
             }else{
