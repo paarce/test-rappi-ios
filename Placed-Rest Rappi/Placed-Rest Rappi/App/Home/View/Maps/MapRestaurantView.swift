@@ -16,7 +16,7 @@ class MapRestaurantView: UIView, CLLocationManagerDelegate {
     var parent : HomeViewController?
     
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 1000
+    let regionRadius: CLLocationDistance = 2000
     var settedLocation = false
     
     func iniUI( parent : HomeViewController) {
@@ -47,6 +47,24 @@ class MapRestaurantView: UIView, CLLocationManagerDelegate {
             make.center.equalToSuperview()
             make.size.equalToSuperview()
         }
+        
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(addWaypoint(longGesture:)))
+        mapView!.addGestureRecognizer(longGesture)
+        
+    }
+    
+    @objc func addWaypoint(longGesture: UIGestureRecognizer) {
+        
+        UIDevice.vibrate()
+        let touchPoint = longGesture.location(in: mapView)
+        let wayCoords = mapView!.convert(touchPoint, toCoordinateFrom: mapView)
+        let location = CLLocation(latitude: wayCoords.latitude, longitude: wayCoords.longitude)
+        
+        
+        self.parent?.initUser(location: location)
+        self.centerMapOnLocation(location: location, regionRadius: self.regionRadius)
+        self.parent?.loadInitialData()
+        
         
     }
     

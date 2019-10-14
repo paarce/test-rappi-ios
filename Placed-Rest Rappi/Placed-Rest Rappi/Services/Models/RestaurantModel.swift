@@ -32,10 +32,10 @@ struct UserRatingModel : Codable {
     var aggregate_rating: Any
     let rating_text: String?
     let rating_color: String?
-    let votes: String?
+    var votes: Any
     
     
-    init(aggregate_rating: Any, rating_text: String?,  rating_color: String?, votes: String?) {
+    init(aggregate_rating: Any, rating_text: String?,  rating_color: String?, votes: Any) {
         self.aggregate_rating = aggregate_rating
         self.rating_text = rating_text
         self.rating_color = rating_color
@@ -45,6 +45,8 @@ struct UserRatingModel : Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Keys.self)
         self.aggregate_rating = "0.0"
+        self.votes = "0"
+        
         if let idstr = try? container.decodeIfPresent(String.self, forKey: .aggregate_rating) {
             if let idnum = Int(idstr) {
                 aggregate_rating = idnum
@@ -54,12 +56,24 @@ struct UserRatingModel : Codable {
             }
         }else if let idnum = try? container.decodeIfPresent(Int.self, forKey: .aggregate_rating) {
             
-            aggregate_rating = idnum
+            votes = idnum
         }
+        
+        if let idstr = try? container.decodeIfPresent(String.self, forKey: .votes) {
+            if let idnum = Int(idstr) {
+                votes = idnum
+            }
+            else {
+                votes = idstr
+            }
+        }else if let idnum = try? container.decodeIfPresent(Int.self, forKey: .votes) {
+            
+            votes = idnum
+        }
+        
         
         self.rating_text = try container.decodeIfPresent(String.self, forKey: .rating_text)
         self.rating_color = try container.decodeIfPresent(String.self, forKey: .rating_color)
-        self.votes = try container.decodeIfPresent(String.self, forKey: .votes)
         
         return
     }
