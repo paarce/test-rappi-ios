@@ -20,6 +20,7 @@ public class HomeViewModel {
     }
     var itemPerPage = 20
     var pageNumber = 1
+    var currentSort = ""
     
     init() {
         self.searchLocation = CLLocation(latitude: defaultCoordinate["latitude"]!, longitude: defaultCoordinate["longitude"]!)
@@ -30,17 +31,29 @@ public class HomeViewModel {
         Api.request(endpoint : .search(lat: self.searchLocation.coordinate.latitude ,
                                         log: self.searchLocation.coordinate.longitude,
                                         q: query,
-                                        start : nil),
+                                        start : nil,
+                                        sort : self.currentSort),
                     completation : completation)
     }
     
+    
+    func callSearchObservable( sort : String, completation: @escaping (Result<SearchModel,ErrorApi>) -> Void) {
+        self.currentSort = sort
+        Api.request(endpoint : .search(lat: self.searchLocation.coordinate.latitude ,
+                                       log: self.searchLocation.coordinate.longitude,
+                                       q: nil,
+                                       start : self.pageNumber*itemPerPage,
+                                       sort : self.currentSort ),
+                    completation : completation)
+    }
     
     func callSearchNextPageObservable( completation: @escaping (Result<SearchModel,ErrorApi>) -> Void) {
         
         Api.request(endpoint : .search(lat: self.searchLocation.coordinate.latitude ,
                                        log: self.searchLocation.coordinate.longitude,
                                        q: nil,
-                                       start : self.pageNumber*itemPerPage ),
+                                       start : self.pageNumber*itemPerPage,
+                                       sort : self.currentSort ),
                     completation : completation)
     }
     

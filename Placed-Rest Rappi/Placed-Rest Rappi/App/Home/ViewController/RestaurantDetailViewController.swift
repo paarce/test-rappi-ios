@@ -42,14 +42,14 @@ class RestaurantDetailViewController: UIViewController {
             self.nameLabel.text = rest.name
             self.descriotionLabel.text = rest.cuisines
             
-            if let address = rest.location.address, let city = rest.location.city {
-                self.addressValueLabel.text = "\(address ) \(rest.location.zipcode ?? ""). \(city)."
+            if let address = rest.location?.address, let city = rest.location?.city {
+                self.addressValueLabel.text = "\(address ) \(rest.location!.zipcode ?? ""). \(city)."
             }else {
                 self.addressValueLabel.text = "No address available"
             }
             
             if let user_rating = rest.user_rating {
-                self.ratingNumberLabel.text = user_rating.aggregate_rating
+                self.ratingNumberLabel.text = user_rating.aggregate_rating as? String
                 self.ratingNumberLabel.backgroundColor = hexStringToUIColor(hex: "#\(user_rating.rating_color!)")
                 self.countVoteLabel.text = "\(user_rating.votes ?? "0") votes counted"
             }
@@ -61,11 +61,13 @@ class RestaurantDetailViewController: UIViewController {
         
         if let _ = self.data {
             
-            let images = self.data!.restaurant.photos.compactMap { LightboxImage(imageURL: URL(string: $0.photo.url!)!, text : $0.photo.caption ?? "" ) }
+            let images = self.data!.restaurant.photos?.compactMap { LightboxImage(imageURL: URL(string: $0.photo.url!)!, text : $0.photo.caption ?? "" ) }
             
-            self.controllerImagesViewer = LightboxController(images: images)
-            self.controllerImagesViewer!.pageDelegate = self
-            self.controllerImagesViewer!.dismissalDelegate = self
+            if let images = images {
+                self.controllerImagesViewer = LightboxController(images: images)
+                self.controllerImagesViewer!.pageDelegate = self
+                self.controllerImagesViewer!.dismissalDelegate = self
+            }
         }
     }
     

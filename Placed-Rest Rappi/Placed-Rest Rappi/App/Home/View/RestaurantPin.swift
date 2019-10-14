@@ -17,8 +17,8 @@ class RestaurantPin: NSObject, MKAnnotation {
     
     init(data: RestaurantModel) {
         self.data = data
-        if let la = data.restaurant.location.latitude, let dLa = Double(la),
-           let lo = data.restaurant.location.longitude, let dLo = Double(lo) {
+        if let la = data.restaurant.location?.latitude, let dLa = Double(la),
+           let lo = data.restaurant.location?.longitude, let dLo = Double(lo) {
             self.coordinate = CLLocationCoordinate2D(latitude: dLa, longitude: dLo)
         }else{
             
@@ -31,7 +31,7 @@ class RestaurantPin: NSObject, MKAnnotation {
     }
     
     var subtitle: String? {
-        return data.restaurant.location.address ?? "No address"
+        return data.restaurant.location?.address ?? "No address"
     }
     
     var markerTintColor: UIColor  {

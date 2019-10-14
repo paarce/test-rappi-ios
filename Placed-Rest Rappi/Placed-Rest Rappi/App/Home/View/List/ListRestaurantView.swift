@@ -55,7 +55,7 @@ class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         
         cell.textLabel?.text = self.restaurants[indexPath.row].restaurant.name ?? "No title"
-        cell.detailTextLabel?.text = self.restaurants[indexPath.row].restaurant.location.address ?? "No title"
+        cell.detailTextLabel?.text = self.restaurants[indexPath.row].restaurant.location?.address ?? "No title"
         cell.imageView?.image = UIImage(named: "Flag")
         cell.accessoryType = .detailDisclosureButton
         cell.selectionStyle = .none

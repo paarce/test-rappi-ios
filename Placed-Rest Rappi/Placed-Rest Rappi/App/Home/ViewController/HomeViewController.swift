@@ -62,16 +62,7 @@ class HomeViewController: UIViewController {
         homeVM.callSearchObservable{ result in
             switch result{
                 case .success(let model):
-                    if let restaurants = model.restaurants {
-                        let pins = restaurants.compactMap { RestaurantPin(data: $0) }
-                        
-                        if let annotations = self.mapRestaurantView.mapView?.annotations {
-                            self.mapRestaurantView.mapView?.removeAnnotations(annotations)
-                        }
-                        
-                        self.mapRestaurantView.mapView?.addAnnotations(pins)
-                        self.listRestaurantView.restaurants = restaurants
-                    }
+                    self.fillViews(searchModel: model, isInit: true)
                 break
 
                 case .failure(let errorT):
@@ -86,11 +77,7 @@ class HomeViewController: UIViewController {
         self.homeVM.callSearchNextPageObservable { result in
             switch result{
             case .success(let model):
-                if let restaurants = model.restaurants {
-                    let pins = restaurants.compactMap { RestaurantPin(data: $0) }
-                    self.mapRestaurantView.mapView?.addAnnotations(pins)
-                    self.listRestaurantView.restaurants += restaurants
-                }
+                self.fillViews(searchModel: model, isInit: false)
                 break
                 
             case .failure(let errorT):
@@ -107,9 +94,33 @@ class HomeViewController: UIViewController {
     func showDetailof( restaurant : RestaurantModel) {
         
         if let vc = R.storyboard.home.restaurantDetailViewController() {
+           self.searchController.isActive = false
             vc.data = restaurant
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    
+    private func fillViews(searchModel : SearchModel, isInit : Bool ){
+        
+        
+        if let restaurants = searchModel.restaurants {
+            let pins = restaurants.compactMap { RestaurantPin(data: $0) }
+            
+            if isInit {
+                
+                if let annotations = self.mapRestaurantView.mapView?.annotations {
+                    self.mapRestaurantView.mapView?.removeAnnotations(annotations)
+                }
+                self.listRestaurantView.restaurants = restaurants
+            }else{
+                self.listRestaurantView.restaurants += restaurants
+                
+            }
+            
+            self.mapRestaurantView.mapView?.addAnnotations(pins)
+        }
+        
     }
     
 }
@@ -144,12 +155,48 @@ extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         print(selectedScope)
         
+        var sortValue = ""
+        
+        switch selectedScope {
+        case 1:
+            sortValue = "cost"
+        case 2:
+            sortValue = "rating"
+        case 3:
+            sortValue = "real_distance"
+        default:
+             break
+        }
+        
+        
+        self.homeVM.callSearchObservable(sort: sortValue) { result in
+            switch result{
+            case .success(let model):
+                self.fillViews(searchModel: model, isInit: true)
+                break
+                
+            case .failure(let errorT):
+                print(errorT.get().message)
+                break
+            }
+        }
+        
     }
     
     func updateSearchResults(for searchController: UISearchController) {
         print("UPDATE====")
-        //        let searchBar = searchController.searchBar
-        //        self.loadData(query: searchBar.text)
+        let searcBar = searchController.searchBar
+        self.homeVM.callSearchObservable(query: searcBar.text) { result in
+            switch result{
+            case .success(let model):
+                self.fillViews(searchModel: model, isInit: true)
+                break
+                
+            case .failure(let errorT):
+                print(errorT.get().message)
+                break
+            }
+        }
     }
     
 }
