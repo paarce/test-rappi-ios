@@ -9,24 +9,36 @@
 import UIKit
 import MapKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, NavigationTabBarDelegate {
+    
+    func changeToIndex(index: Int) {
+        switch index {
+        case 0:
+            self.view.bringSubviewToFront(self.mapRestaurantView)
+        case 1:
+            self.view.bringSubviewToFront(self.listRestaurantView)
+        default:
+            break
+        }
+    }
+    
 
     // MARK: - Properties
-    @IBOutlet weak var menuTabBarView: NavigationTabBar!{
+    @IBOutlet weak var navigationTabBar: NavigationTabBar!{
         didSet{
             let color = UIColor.init(red: 146/255, green: 126/255, blue: 71/255, alpha: 1)
             let colorText = UIColor.gray
-            menuTabBarView.setButtonTitles(buttonTitles: ["Maps","List"])
-            menuTabBarView.backgroundColor     = .clear
-            menuTabBarView.selectorViewColor   = color
-            menuTabBarView.selectorTextColor   = colorText
+            navigationTabBar.setButtonTitles(buttonTitles: ["Maps","List"])
+            navigationTabBar.backgroundColor     = .clear
+            navigationTabBar.selectorViewColor   = color
+            navigationTabBar.selectorTextColor   = colorText
         }
     }
     
     @IBOutlet weak var mapRestaurantView: MapRestaurantView!
+    @IBOutlet weak var listRestaurantView: ListRestaurantView!
     
     var homeVM = HomeViewModel()
-    
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -42,8 +54,9 @@ class HomeViewController: UIViewController {
         
         
         self.configSearchBar()
+        self.navigationTabBar.delegate = self
         self.mapRestaurantView.iniUI(location: self.homeVM.searchLocation, regionRadius: self.homeVM.regionRadius)
-        
+        self.listRestaurantView.iniUI()
         
         
         self.loadInitialData()
@@ -64,6 +77,7 @@ class HomeViewController: UIViewController {
                     if let restaurants = model.restaurants {
                         let pins = restaurants.compactMap { RestaurantPin(data: $0) }
                         self.mapRestaurantView.mapView?.addAnnotations(pins)
+                        self.listRestaurantView.restaurants = restaurants
                     }
                 break
 
@@ -81,7 +95,7 @@ extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func configSearchBar() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Candies"
+        searchController.searchBar.placeholder = "Search Restaurants"
         navigationItem.searchController = searchController
         
         searchController.searchBar.scopeButtonTitles = ["All", "Single", "Married"]

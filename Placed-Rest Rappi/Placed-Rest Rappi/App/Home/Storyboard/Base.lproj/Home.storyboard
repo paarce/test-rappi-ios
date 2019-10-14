@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lWT-Br-rEB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uvS-cI-KcR">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,12 +25,12 @@
                                     <constraint firstAttribute="height" constant="40" id="j6F-dp-Mss"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCG-h9-wkR">
-                                <rect key="frame" x="0.0" y="128" width="414" height="685"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCG-h9-wkR" customClass="ListRestaurantView" customModule="Placed_Rest_Rappi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="128" width="414" height="734"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPG-Jt-pqB" customClass="MapRestaurantView" customModule="Placed_Rest_Rappi" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="128" width="414" height="685"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="734"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -52,8 +52,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="QDC-7Z-z17"/>
                     <connections>
+                        <outlet property="listRestaurantView" destination="bCG-h9-wkR" id="Am5-BU-Boy"/>
                         <outlet property="mapRestaurantView" destination="VPG-Jt-pqB" id="PNK-xj-yCg"/>
-                        <outlet property="menuTabBarView" destination="to4-do-LxU" id="bDd-d8-ox5"/>
+                        <outlet property="navigationTabBar" destination="to4-do-LxU" id="uca-xt-t8y"/>
                         <segue destination="utr-jz-31O" kind="show" id="Xsr-Hx-WH5"/>
                     </connections>
                 </viewController>
@@ -79,24 +80,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nj4-8F-3XC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="76.339285714285708"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="dsJ-Lv-PEQ">
-            <objects>
-                <tabBarController id="lWT-Br-rEB" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zXY-pH-0oH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="uvS-cI-KcR" kind="relationship" relationship="viewControllers" id="AZf-gf-xQP"/>
-                        <segue destination="F6m-Zv-Zj3" kind="relationship" relationship="viewControllers" id="Xn6-wE-wEd"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zEI-e3-h1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1091" y="343"/>
         </scene>
         <!--Restaurant Detail View Controller-->
         <scene sceneID="49w-tF-x3g">
@@ -129,25 +112,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4UN-zK-B0c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2148" y="522"/>
-        </scene>
-        <!--List-->
-        <scene sceneID="FVW-Vx-Adx">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F6m-Zv-Zj3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" id="b2q-YU-EI7"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wB7-yI-xeD">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="nQZ-5H-a3h" kind="relationship" relationship="rootViewController" id="VAG-mA-jtH"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PKG-Fh-cbg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="889.95535714285711"/>
         </scene>
         <!--Home Table View Controller-->
         <scene sceneID="0Ls-xp-Bpo">
@@ -210,9 +174,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="JGS-jb-OXq"/>
-                    <connections>
-                        <segue destination="utr-jz-31O" kind="show" id="XvS-tc-HwO"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZc-rv-Aif" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -222,7 +183,4 @@
     <resources>
         <image name="Flag" width="48" height="48"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Xsr-Hx-WH5"/>
-    </inferredMetricsTieBreakers>
 </document>
