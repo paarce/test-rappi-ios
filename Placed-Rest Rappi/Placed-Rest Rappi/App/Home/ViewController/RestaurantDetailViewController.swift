@@ -49,15 +49,14 @@ class RestaurantDetailViewController: UIViewController {
     
     @IBAction func onCallPhone(_ sender: Any) {
         
-        print(self.data?.restaurant.phone_numbers)
         
         if let phone = self.data?.restaurant.phone_numbers {
             
             let numbers = phone.components(separatedBy: ", ")
             
             for num in numbers {
-                
-                if let url = URL(string: "tel://\(num)")
+        
+                if let url = URL(string: "tel://\(num.numberFormat)")
                 {
                     if #available(iOS 10, *) {
                         UIApplication.shared.open(url)

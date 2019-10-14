@@ -20,6 +20,7 @@
 		865686612354626500A4D60C /* uicolor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865686602354626500A4D60C /* uicolor+extension.swift */; };
 		865686632354630000A4D60C /* RestaurantDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865686622354630000A4D60C /* RestaurantDetailViewModel.swift */; };
 		8656866623547B8C00A4D60C /* uidevice+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8656866523547B8C00A4D60C /* uidevice+extension.swift */; };
+		865686682354893900A4D60C /* string+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865686672354893900A4D60C /* string+extension.swift */; };
 		8664FDCA23524A9700B62142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FDC923524A9700B62142 /* AppDelegate.swift */; };
 		8664FDCF23524A9700B62142 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8664FDCD23524A9700B62142 /* Home.storyboard */; };
 		8664FDD123524A9C00B62142 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8664FDD023524A9C00B62142 /* Assets.xcassets */; };
@@ -76,6 +77,7 @@
 		865686602354626500A4D60C /* uicolor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "uicolor+extension.swift"; sourceTree = "<group>"; };
 		865686622354630000A4D60C /* RestaurantDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewModel.swift; sourceTree = "<group>"; };
 		8656866523547B8C00A4D60C /* uidevice+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "uidevice+extension.swift"; sourceTree = "<group>"; };
+		865686672354893900A4D60C /* string+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "string+extension.swift"; sourceTree = "<group>"; };
 		8664FDC623524A9700B62142 /* Placed-Rest Rappi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Placed-Rest Rappi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8664FDC923524A9700B62142 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8664FDCE23524A9700B62142 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				8664FE282352FC0D00B62142 /* tableview+extension.swift */,
 				865686602354626500A4D60C /* uicolor+extension.swift */,
 				8656866523547B8C00A4D60C /* uidevice+extension.swift */,
+				865686672354893900A4D60C /* string+extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				8656865F235460DF00A4D60C /* DailyMenuModel.swift in Sources */,
 				8664FE212352E87E00B62142 /* R.generated.swift in Sources */,
 				865686542354136700A4D60C /* ListRestaurantView.swift in Sources */,
+				865686682354893900A4D60C /* string+extension.swift in Sources */,
 				865686562354378100A4D60C /* ReviewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

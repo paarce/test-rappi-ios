@@ -121,12 +121,6 @@ extension Api: TargetType {
     
 }
 
-extension String {
-    var urlEscaped: String {
-        return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-    }
-}
-
 extension Response {
     
     func printToString() {

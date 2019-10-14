@@ -99,6 +99,22 @@ class MapRestaurantView: UIView, CLLocationManagerDelegate {
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+            break
+        case .authorizedWhenInUse, .authorizedAlways:
+            manager.startUpdatingLocation()
+            break
+        case .restricted, .denied:
+            self.parent?.loadInitialData()
+            break
+        default:
+            break
+        }
+    }
+    
 
 }
 

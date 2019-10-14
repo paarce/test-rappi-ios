@@ -47,7 +47,7 @@ class HomeViewController: UIViewController {
         self.listRestaurantView.iniUI(parent: self)
         
         
-        self.loadInitialData()
+        //self.loadInitialData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
