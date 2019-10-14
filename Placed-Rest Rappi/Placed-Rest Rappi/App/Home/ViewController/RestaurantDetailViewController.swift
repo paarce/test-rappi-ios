@@ -83,6 +83,7 @@ class RestaurantDetailViewController: UIViewController {
             let rest = data.restaurant
             
             self.nameLabel.text = rest.name
+            self.nameLabel.adjustsFontSizeToFitWidth = true
             self.descriotionLabel.text = rest.cuisines
             
             if let address = rest.location?.address, let city = rest.location?.city {
