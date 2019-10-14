@@ -18,12 +18,7 @@ struct DailyMenuChildModel : Codable {
     let daily_menu_id: String?
     let name: String?
     let start_date: String?
-    let cuisines: String?
-    let phone_numbers : String?
-    let location: LocationModel?
-    let photos : [PhotoModel]?
-    let all_reviews : ReviewsListModel?
-    let user_rating : UserRatingModel?
+    let dishes : [DishModel]?
 }
 
 

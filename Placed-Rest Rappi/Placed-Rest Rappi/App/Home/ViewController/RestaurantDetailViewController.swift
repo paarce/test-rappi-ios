@@ -22,6 +22,7 @@ class RestaurantDetailViewController: UIViewController {
     var data : RestaurantModel?
     var controllerImagesViewer : LightboxController?
     var restDetailVM = RestaurantDetailViewModel()
+    var dailyMenu : DailyMenuModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,10 @@ class RestaurantDetailViewController: UIViewController {
     
     @IBAction func onShowDailyMenu(_ sender: Any) {
         
+        if let vc = R.storyboard.home.dailyMenuTableViewController() {
+            vc.data = self.dailyMenu
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func initUI() {
