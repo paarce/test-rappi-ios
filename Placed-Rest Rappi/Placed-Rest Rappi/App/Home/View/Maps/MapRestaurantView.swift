@@ -13,8 +13,11 @@ import SnapKit
 class MapRestaurantView: UIView {
 
     var mapView: MKMapView?
+    var parent : HomeViewController?
     
-    func iniUI(location : CLLocation, regionRadius : CLLocationDistance ) {
+    func iniUI(location : CLLocation, regionRadius : CLLocationDistance, parent : HomeViewController) {
+        
+        self.parent = parent
         self.backgroundColor = UIColor.green
         self.configMapView()
         self.centerMapOnLocation(location: location, regionRadius: regionRadius)
@@ -65,11 +68,7 @@ extension MapRestaurantView: MKMapViewDelegate {
                  calloutAccessoryControlTapped control: UIControl) {
         
         let pin = view.annotation as! RestaurantPin
-        
-        let vc = R.storyboard.home.restaurantDetailViewController()
-        vc!.data = pin.data
-        //self.navigationController?.pushViewController(vc!, animated: true)
-        
+        self.parent?.showDetailof(restaurant: pin.data)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

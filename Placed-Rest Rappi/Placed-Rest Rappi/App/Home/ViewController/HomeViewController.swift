@@ -9,19 +9,7 @@
 import UIKit
 import MapKit
 
-class HomeViewController: UIViewController, NavigationTabBarDelegate {
-    
-    func changeToIndex(index: Int) {
-        switch index {
-        case 0:
-            self.view.bringSubviewToFront(self.mapRestaurantView)
-        case 1:
-            self.view.bringSubviewToFront(self.listRestaurantView)
-        default:
-            break
-        }
-    }
-    
+class HomeViewController: UIViewController {
 
     // MARK: - Properties
     @IBOutlet weak var navigationTabBar: NavigationTabBar!{
@@ -55,8 +43,8 @@ class HomeViewController: UIViewController, NavigationTabBarDelegate {
         
         self.configSearchBar()
         self.navigationTabBar.delegate = self
-        self.mapRestaurantView.iniUI(location: self.homeVM.searchLocation, regionRadius: self.homeVM.regionRadius)
-        self.listRestaurantView.iniUI()
+        self.mapRestaurantView.iniUI(location: self.homeVM.searchLocation, regionRadius: self.homeVM.regionRadius, parent: self)
+        self.listRestaurantView.iniUI(parent: self)
         
         
         self.loadInitialData()
@@ -85,6 +73,29 @@ class HomeViewController: UIViewController, NavigationTabBarDelegate {
                     print(errorT.get().message)
                 break
             }
+        }
+    }
+    
+    func showDetailof( restaurant : RestaurantModel) {
+        
+        if let vc = R.storyboard.home.restaurantDetailViewController() {
+            vc.data = restaurant
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+}
+
+extension HomeViewController: NavigationTabBarDelegate {
+
+    func changeToIndex(index: Int) {
+        switch index {
+        case 0:
+            self.view.bringSubviewToFront(self.mapRestaurantView)
+        case 1:
+            self.view.bringSubviewToFront(self.listRestaurantView)
+        default:
+            break
         }
     }
     

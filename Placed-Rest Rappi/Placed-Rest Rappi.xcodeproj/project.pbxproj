@@ -30,7 +30,6 @@
 		8664FE1E2352E6DF00B62142 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE1D2352E6DF00B62142 /* RestaurantDetailViewController.swift */; };
 		8664FE212352E87E00B62142 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE202352E87E00B62142 /* R.generated.swift */; };
 		8664FE242352F74100B62142 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE232352F74100B62142 /* PhotoModel.swift */; };
-		8664FE262352FABF00B62142 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE252352FABF00B62142 /* HomeTableViewController.swift */; };
 		8664FE292352FC0D00B62142 /* tableview+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE282352FC0D00B62142 /* tableview+extension.swift */; };
 		8664FE652353270D00B62142 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8664FE642353270D00B62142 /* GoogleService-Info.plist */; };
 		8664FE6A2353B11200B62142 /* HomeNavigationTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8664FE692353B11200B62142 /* HomeNavigationTabBar.swift */; };
@@ -85,7 +84,6 @@
 		8664FE1D2352E6DF00B62142 /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
 		8664FE202352E87E00B62142 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		8664FE232352F74100B62142 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
-		8664FE252352FABF00B62142 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		8664FE282352FC0D00B62142 /* tableview+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "tableview+extension.swift"; sourceTree = "<group>"; };
 		8664FE642353270D00B62142 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8664FE692353B11200B62142 /* HomeNavigationTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationTabBar.swift; sourceTree = "<group>"; };
@@ -276,7 +274,6 @@
 			children = (
 				8664FDFE23526F4C00B62142 /* HomeViewController.swift */,
 				8664FE1D2352E6DF00B62142 /* RestaurantDetailViewController.swift */,
-				8664FE252352FABF00B62142 /* HomeTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -583,7 +580,6 @@
 				8664FE06235278C600B62142 /* ApiManager.swift in Sources */,
 				8664FE112352824700B62142 /* RestaurantModel.swift in Sources */,
 				8664FE152352855800B62142 /* SearchModel.swift in Sources */,
-				8664FE262352FABF00B62142 /* HomeTableViewController.swift in Sources */,
 				8664FE0F2352815900B62142 /* HomeViewModel.swift in Sources */,
 				865686512353C64800A4D60C /* MapRestaurantView.swift in Sources */,
 				8664FE132352843E00B62142 /* LocationModel.swift in Sources */,

@@ -11,6 +11,7 @@ import UIKit
 class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     var tableView : UITableView?
+    var parent : HomeViewController?
     
     var restaurants : [RestaurantModel] = [] {
         didSet{
@@ -18,7 +19,13 @@ class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func iniUI() {
+    func iniUI(parent : HomeViewController) {
+        
+        self.parent = parent
+        self.configTableView()
+    }
+    
+    func configTableView() {
         
         tableView = UITableView()
         
@@ -49,12 +56,8 @@ class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.parent?.showDetailof(restaurant: self.restaurants[indexPath.row])
     }
-    */
 
 }
