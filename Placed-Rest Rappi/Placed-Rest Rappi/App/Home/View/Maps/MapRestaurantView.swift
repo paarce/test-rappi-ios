@@ -10,17 +10,31 @@ import UIKit
 import MapKit
 import SnapKit
 
-class MapRestaurantView: UIView {
+class MapRestaurantView: UIView, CLLocationManagerDelegate {
 
     var mapView: MKMapView?
     var parent : HomeViewController?
     
-    func iniUI(location : CLLocation, regionRadius : CLLocationDistance, parent : HomeViewController) {
+    let locationManager = CLLocationManager()
+    let regionRadius: CLLocationDistance = 1000
+    var settedLocation = false
+    
+    func iniUI( parent : HomeViewController) {
         
         self.parent = parent
-        self.backgroundColor = UIColor.green
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
         self.configMapView()
-        self.centerMapOnLocation(location: location, regionRadius: regionRadius)
     }
     
     func configMapView() {
@@ -38,7 +52,6 @@ class MapRestaurantView: UIView {
     
     // MARK: - CLLocationManager
     
-    let locationManager = CLLocationManager()
     
     func checkLocationAuthorizationStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedAlways {
@@ -55,6 +68,18 @@ class MapRestaurantView: UIView {
         mapView?.setRegion(coordinateRegion, animated: true)
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocation = manager.location else { return }
+        
+        if !self.settedLocation {
+            
+            self.parent?.initUser(location: locValue)
+            self.centerMapOnLocation(location: locValue, regionRadius: self.regionRadius)
+            self.parent?.loadInitialData()
+            self.settedLocation = true
+            
+        }
+    }
     
 
 }

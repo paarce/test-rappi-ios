@@ -18,6 +18,18 @@ struct RestaurantChildModel : Codable {
     let id: String?
     let name: String?
     let url: String?
+    let cuisines: String?
     let location: LocationModel
     let photos : [PhotoModel]
+    let all_reviews : ReviewsListModel?
+    let user_rating : UserRatingModel?
 }
+
+struct UserRatingModel : Codable {
+
+    let aggregate_rating: String?
+    let rating_text: String?
+    let rating_color: String?
+    let votes: String?
+}
+

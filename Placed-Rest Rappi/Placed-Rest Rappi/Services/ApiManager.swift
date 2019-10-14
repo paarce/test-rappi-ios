@@ -13,7 +13,7 @@ let provider = MoyaProvider<Api>()
 
 
 enum Api {
-    case search( lat : Double, log : Double, q : String?)
+    case search( lat : Double, log : Double, q : String?, start: Int?)
     
 }
 
@@ -57,10 +57,11 @@ extension Api: TargetType {
     var task: Task {
     
         switch self {
-        case .search(let lat, let log, let q):
+        case .search(let lat, let log, let q, let start):
             let parameters : [String : Any] = [
                 "lat": lat,
                 "lon": log,
+                "start": start ?? "",
                 "q": q ?? ""
                 ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
@@ -75,6 +76,7 @@ extension Api: TargetType {
                 switch response.statusCode{
                 case 200...299:
                     //response.printToString()
+                    //print(response.request?.url)
                     if let completationBool = completationBool {
                         completationBool(.success(true))
                     }else if let completation = completation {

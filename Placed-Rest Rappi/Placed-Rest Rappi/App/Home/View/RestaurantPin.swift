@@ -34,7 +34,6 @@ class RestaurantPin: NSObject, MKAnnotation {
         return data.restaurant.location.address ?? "No address"
     }
     
-    // pinTintColor for disciplines: Sculpture, Plaque, Mural, Monument, other
     var markerTintColor: UIColor  {
         return .green
         

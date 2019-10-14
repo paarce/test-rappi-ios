@@ -26,7 +26,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var mapRestaurantView: MapRestaurantView!
     @IBOutlet weak var listRestaurantView: ListRestaurantView!
     
-    var homeVM = HomeViewModel()
+    private var homeVM = HomeViewModel()
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
         
         self.configSearchBar()
         self.navigationTabBar.delegate = self
-        self.mapRestaurantView.iniUI(location: self.homeVM.searchLocation, regionRadius: self.homeVM.regionRadius, parent: self)
+        self.mapRestaurantView.iniUI(parent: self)
         self.listRestaurantView.iniUI(parent: self)
         
         
@@ -64,6 +64,11 @@ class HomeViewController: UIViewController {
                 case .success(let model):
                     if let restaurants = model.restaurants {
                         let pins = restaurants.compactMap { RestaurantPin(data: $0) }
+                        
+                        if let annotations = self.mapRestaurantView.mapView?.annotations {
+                            self.mapRestaurantView.mapView?.removeAnnotations(annotations)
+                        }
+                        
                         self.mapRestaurantView.mapView?.addAnnotations(pins)
                         self.listRestaurantView.restaurants = restaurants
                     }
@@ -74,6 +79,29 @@ class HomeViewController: UIViewController {
                 break
             }
         }
+    }
+    
+    
+    func showMoreData() {
+        self.homeVM.callSearchNextPageObservable { result in
+            switch result{
+            case .success(let model):
+                if let restaurants = model.restaurants {
+                    let pins = restaurants.compactMap { RestaurantPin(data: $0) }
+                    self.mapRestaurantView.mapView?.addAnnotations(pins)
+                    self.listRestaurantView.restaurants += restaurants
+                }
+                break
+                
+            case .failure(let errorT):
+                print(errorT.get().message)
+                break
+            }
+        }
+    }
+    
+    func initUser( location: CLLocation ) {
+        self.homeVM.searchLocation = location
     }
     
     func showDetailof( restaurant : RestaurantModel) {
@@ -109,11 +137,12 @@ extension HomeViewController: UISearchResultsUpdating, UISearchBarDelegate {
         searchController.searchBar.placeholder = "Search Restaurants"
         navigationItem.searchController = searchController
         
-        searchController.searchBar.scopeButtonTitles = ["All", "Single", "Married"]
+        searchController.searchBar.scopeButtonTitles = ["None filter","Cost", "Rating", "Distance"]
         searchController.searchBar.delegate = self
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        print(selectedScope)
         
     }
     

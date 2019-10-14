@@ -13,8 +13,11 @@ import RxCocoa
 
 public class HomeViewModel {
     
-    let regionRadius: CLLocationDistance = 1000
-    var searchLocation : CLLocation
+    var searchLocation : CLLocation {
+        didSet{
+            print(self.searchLocation.coordinate.latitude)
+        }
+    }
     var itemPerPage = 20
     var pageNumber = 1
     
@@ -23,10 +26,21 @@ public class HomeViewModel {
     }
     
     func callSearchObservable(query : String? = nil, completation: @escaping (Result<SearchModel,ErrorApi>) -> Void) {
-        
+        self.pageNumber = 1
         Api.request(endpoint : .search(lat: self.searchLocation.coordinate.latitude ,
                                         log: self.searchLocation.coordinate.longitude,
-                                        q: query ),
+                                        q: query,
+                                        start : nil),
+                    completation : completation)
+    }
+    
+    
+    func callSearchNextPageObservable( completation: @escaping (Result<SearchModel,ErrorApi>) -> Void) {
+        
+        Api.request(endpoint : .search(lat: self.searchLocation.coordinate.latitude ,
+                                       log: self.searchLocation.coordinate.longitude,
+                                       q: nil,
+                                       start : self.pageNumber*itemPerPage ),
                     completation : completation)
     }
     

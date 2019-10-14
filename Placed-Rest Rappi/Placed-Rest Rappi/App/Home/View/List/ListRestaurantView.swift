@@ -12,10 +12,12 @@ class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     var tableView : UITableView?
     var parent : HomeViewController?
+    var loadMoreControl : LoadMoreControl?
     
     var restaurants : [RestaurantModel] = [] {
         didSet{
             self.tableView?.reloadData()
+            self.loadMoreControl?.stop()
         }
     }
     
@@ -28,10 +30,8 @@ class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
     func configTableView() {
         
         tableView = UITableView()
-        
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
-        //self.tableView?.allowsSelection = false
         
         self.addSubview(self.tableView!)
         tableView!.snp.makeConstraints { make in
@@ -39,7 +39,13 @@ class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
             make.size.equalToSuperview()
         }
         
+        self.loadMoreControl = LoadMoreControl(scrollView: tableView!, spacingFromLastCell: 10, indicatorHeight: 60)
+        self.loadMoreControl!.delegate = self
+        
     }
+    
+    
+    // MARK: - UITableViewDelegate & UITableViewDataSource methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.restaurants.count
@@ -52,12 +58,28 @@ class ListRestaurantView: UIView, UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.text = self.restaurants[indexPath.row].restaurant.location.address ?? "No title"
         cell.imageView?.image = UIImage(named: "Flag")
         cell.accessoryType = .detailDisclosureButton
-        
+        cell.selectionStyle = .none
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.parent?.showDetailof(restaurant: self.restaurants[indexPath.row])
     }
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.loadMoreControl?.didScroll()
+    }
 
+}
+
+extension ListRestaurantView: LoadMoreControlDelegate {
+    func loadMoreControl(didStartAnimating loadMoreControl: LoadMoreControl) {
+        self.parent?.showMoreData()
+    }
+    
+    func loadMoreControl(didStopAnimating loadMoreControl: LoadMoreControl) {
+        print("didStopAnimating")
+    }
 }
